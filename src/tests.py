@@ -41,8 +41,10 @@ class TestAPI(unittest.TestCase):
             response = self.client.post("/upload_pdf/", files={"file": ("healthinc.pdf", file, "application/pdf")})
         self.assertEqual(response.status_code, 200)
         data = response.json()
-        self.assertEqual(data["summary"]["company_name"], "HealthInc")
-        self.assertGreater(data["summary"]["discrepancies_count"], 0)
+        # self.assertEqual("hola", data["database_data"])
+        self.assertEqual(data["database_data"]["Company Name"], "HealthInc")
+        
+        self.assertGreater(len(data["discrepancies"]), 0)
 
     def test_upload_nonexistent_pdf(self):
         """
