@@ -46,6 +46,10 @@ async def upload_pdf(file: UploadFile = File(...)):
     if file.content_type != "application/pdf":
         raise HTTPException(status_code=400, detail="Invalid file type")
     
+    file_location = f"assets/{file.filename}"
+    with open(file_location, "wb") as f:
+        f.write(file.file.read())
+    
     # Placeholder for further implementation
     return DataComparison(
         extracted_data={},
